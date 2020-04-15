@@ -89,14 +89,14 @@ const DrawerNavigatorExample = createDrawerNavigator({
     //Title
     screen: Screen2_StackNavigator,
     navigationOptions: {
-      drawerLabel: 'Example',
+      drawerLabel: 'Sketch_Here_',
     },
   },
   Screen3: {
     //Title
     screen: Screen3_StackNavigator,
     navigationOptions: {
-      drawerLabel: 'Example 2',
+      drawerLabel: 'Sketch_Here_2',
     },
   },
 });

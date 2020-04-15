@@ -6,17 +6,20 @@ import {
   View,
   Alert,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
+
 import {Button} from 'react-native';
 
-import {AnalyzeButton} from './AnalyzeButton';
+import {LineChart } from "react-native-chart-kit";
 
 
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 
 
-export class DrawingBoard extends Component {
+export class Sketch extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -30,8 +33,7 @@ export class DrawingBoard extends Component {
   }
   updateState = () => {
     console.log('updateState called');
-    // let pathChange = JSON.stringify(this.canvas.getPaths());
-    this.setState(previousState => {
+   this.setState(previousState => {
       return {
         path: JSON.stringify(this.canvas.getPaths()),
       };
@@ -39,9 +41,11 @@ export class DrawingBoard extends Component {
   };
 
   render() {
-    return (
+
+   return (
       <View style={{flex: 1, flexDirection: 'row'}}>
         <View style={{flex: 1, flexDirection: 'column'}}>
+          {/* Place eraser component */}
           <SketchCanvas
             localSourceImage={{
               filename: 'background.jpg',
@@ -50,7 +54,7 @@ export class DrawingBoard extends Component {
             }}
             
             ref={ref => (this.canvas = ref)}
-            style={{flex: 1}}
+            style={{flex: 1, zIndex:10}}
             strokeColor={this.state.color}
             strokeWidth={this.state.thickness}
             onStrokeStart={(x, y) => {
@@ -63,17 +67,86 @@ export class DrawingBoard extends Component {
             }}
             onStrokeEnd={() => {
               this.setState({message: 'End'});
-               }}
+                }}
             onPathsChange={pathsCount => {
               console.log('pathsCount', pathsCount);
             }}
           />
+
+
+ 
+       <View style={{marginTop: -480 }}>
+         <Text style={{
+                textAlign: 'center',
+                fontSize: 18,
+                padding: 16,
+                marginTop: -480,
+                zIndex:1
+              }}>Disease_Name_ :</Text>
+  
+  <LineChart data={{ labels: ["0.2s", "0.4s", "0.6s", "0.8s", "1s"], 
+  datasets: [
+        {
+          data: [2, 3]
+        }
+      ]
+    }}
+
+width={Dimensions.get("window").width} // from react-native
+    height={320}
+    yAxisLabel=""
+    xAxisSuffix="s"
+withInnerLines={false}
+withOuterLines={false}
+    yAxisInterval={1} // optional, defaults to 1
+    xAxisInterval={1}
+    chartConfig={{
+      
+      fromZero: false,
+      backgroundColor: "#0000ff",
+      backgroundGradientFrom: "#0000ff",
+      backgroundGradientTo: "#ffa726",
+      decimalPlaces: 2, // optional, defaults to 2dp
+      color: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
+      labelColor: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
+      style: {
+        borderRadius: 0
+      },
+      tooltip: {
+    visible: true,
+    labelFontSize: 0
+  },
+      propsForDots: {
+        r: "",
+        strokeWidth: "14",
+        stroke: "#000000"
+      }
+    }}
+    
+    style={{
+      marginVertical: 0,
+      borderRadius: 0
+    }}
+
+
+    />
+</View>
+
+    
+   
+  
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-evenly',
               alignItems: 'center',
             }}>
+            
+           
+
+            
+
+            
           </View>
         </View>
       </View>
@@ -81,9 +154,6 @@ export class DrawingBoard extends Component {
   }
 }
 
-// getOutput = canvas => {
-//   this.state.path = JSON.stringify(this.canvas.getPaths());
-// };
 
 const styles = StyleSheet.create({
   strokeColorButton: {

@@ -1305,7 +1305,7 @@ withOuterLines={false}
 }
 );
 
-const ProfileScreen = React.memo(function ProfileScreen5({ navigation }) {
+const ProfileScreen5 = React.memo(function ProfileScreen5({ navigation }) {
 
    var data = [{'Read': [-0.03, -0.37, -0.44, -0.29, -0.4, -1.04, -1.6,
 -1.58, -1.61, -1.61, -1.81, -1.58, -1.92, -1.48, -1.56, -1.78, -1.46,

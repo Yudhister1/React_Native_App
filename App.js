@@ -21,7 +21,7 @@ import {memo}  from 'react';
 const screenWidth = Dimensions.get("window").width;
 
 import {
-  LineChart,
+  
   BarChart,
   PieChart,
   ProgressChart,
@@ -41,6 +41,11 @@ import { createAppContainer } from 'react-navigation';
 
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
+import {Gradiant} from './Components/Gradiant';
+
+
+import Svg, { Defs, LinearGradient, Stop, Rect } from 'react-native-svg'
+import { LineChart, Grid, XAxis , YAxis} from 'react-native-svg-charts'
 
 
  class DrawingBoard extends Component {
@@ -72,7 +77,7 @@ import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
     this.setState({
       overlayVisibility: false,
     });
-    this.props.navigation.navigate('JSON6') ;
+    this.props.navigation.navigate('Sketch_Here') ;
   }
 
   render() {
@@ -334,10 +339,14 @@ import {SketchCanvas} from '@terrylinla/react-native-sketch-canvas';
 }
 
 
+import FoldView from 'react-native-foldview';
 
 
 
 class Tabs extends React.Component {  
+
+
+
 
   constructor(props) {
     super(props);
@@ -350,6 +359,7 @@ class Tabs extends React.Component {
       scrollEnabled: true,
       path: null,
       overlayVisibility: true,
+      expanded: false,
     };
   
   }
@@ -377,131 +387,100 @@ onButtonPress1 = () => {
    this.setState({
       overlayVisibility: false,
     });
-      }
+}
+
+
+  
 
 render(){ 
+ 
+
   var RNFS = require('react-native-fs');
     var _ = require('lodash');
     return (
   <View>
 
-  <Button title="Press again to see output"
-              type="clear"
-              icon={<Icon name="book" size={60} color="#007AFF" />}
-              onPress={() => {
-                this.setState({
-                  overlayVisibility: true,
-                });
-              }}
-            />
+
+ 
   
-   <Modal
-          animationType="slide"
-          visible={this.state.overlayVisibility}
-          onRequestClose={() => {
-            console.log('Modal displaying samples have been closed!');
-          }}>
-          <TouchableWithoutFeedback
-            onPressIn={() => this.setState({overlayVisibility: false})}>
-
-            <View style={styles.mainModalView}>
-              <View style={styles.centeredView}>
-                {/* SAMPLE 1 */}
-                <TouchableWithoutFeedback
-                  onPressIn={() => this.setState({overlayVisibility: false})}>
-                  <View style={styles.modalView1}>
-                    <Image
-                      source={require('./Components/Sample_Screens/Sample1.png')}
-                      style={{width: 370, height: 330}}
-                    />
-                    <View style={{marginTop: 10}}>
-                     <AwesomeButtonRick type="secondary" height={30} borderRadius={30} padding={10} paddingTop={5} elevation={3} onPress={() => this.props.navigation.navigate('JSONOuput')
-                        
-                      }>SAMPLE 1</AwesomeButtonRick></View>
-                    
-                  </View>
-                </TouchableWithoutFeedback>
-
-                {/* SAMPLE 2 */}
-                <TouchableWithoutFeedback
-                  onPressIn={() => this.setState({overlayVisibility: false})}>
+<View style={{
+        flex: 0.5,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+      }}>
+ 
 
                   <View style={styles.modalView2}>
-                    <Image
-                      source={require('./Components/Sample_Screens/Sample2.png')}
-                      style={{width: 370, height: 330}}
-                    />
-                    <View {...this.props}>
-                    <Button
-              type="clear"
-              icon={<Icon name="play-circle" size={60} color="#34C759" />}
-              onPress={() => this.onButtonPress() }
-            />
-                     </View>
-                  </View>
-                </TouchableWithoutFeedback>
-
-                {/* SAMPLE 3 */}
-                <TouchableWithoutFeedback
-                  onPressIn={() => this.setState({overlayVisibility: false})}>
-                  <View style={styles.modalView3}>
-                    <Image
-                      source={require('./Components/Sample_Screens/Sample3.png')}
-                      style={{width: 370, height: 330}}
-                    />
-                    <View style={{marginTop: 10}}>
-                     <AwesomeButtonRick type="secondary" height={30} borderRadius={30} padding={10} paddingTop={5} elevation={3} onPress={() => {
-                        this.setState({
-                          overlayVisibility: false,
-                          chosenSample: 3,
-                        });
-                      }}>SAMPLE 3</AwesomeButtonRick></View>
-                  </View>
-                </TouchableWithoutFeedback>
-              </View>
-
-              <View style={styles.centeredView}>
-                {/* SAMPLE 4 */}
-                <TouchableWithoutFeedback
-                  onPressIn={() => this.setState({overlayVisibility: false})}>
-                  <View style={styles.modalView4}>
-                    <Image
-                      source={require('./Components/Sample_Screens/Sample4.png')}
-                      style={{width: 370, height: 330}}
-                    />
-                    <View style={{marginTop: 10}}>
-                     <AwesomeButtonRick type="secondary" height={30} borderRadius={30} padding={10} paddingTop={5} elevation={3} onPress={() => {
-                        this.setState({
-                          overlayVisibility: false,
-                          chosenSample: 4,
-                        });
-                      }}>SAMPLE 4</AwesomeButtonRick></View>
-                  </View>
-                </TouchableWithoutFeedback>
-
-                {/* SAMPLE 5 */}
-                <TouchableWithoutFeedback
-                  onPressIn={() => this.setState({overlayVisibility: false})}>
-                  <View style={styles.modalView5}>
                     <Image
                       source={require('./Components/Sample_Screens/Sample5.png')}
                       style={{width: 370, height: 330}}
                     />
                     <View style={{marginTop: 10}}>
-                     <AwesomeButtonRick type="secondary" height={30} borderRadius={30} padding={10} paddingTop={5} elevation={3} onPress={() => {
-                        this.setState({
-                          overlayVisibility: false,
-                          chosenSample: 5,
-                        });
-                      }}>SAMPLE 5</AwesomeButtonRick></View>
-                  </View>
-                </TouchableWithoutFeedback>
-              </View>
-               </View>
-          </TouchableWithoutFeedback>
-        </Modal>
+                     <AwesomeButtonRick type="secondary" height={30} borderRadius={30} padding={10} paddingTop={5} elevation={3} onPress={() => this.onButtonPress()
+                      }>Ouput_</AwesomeButtonRick></View>
+             </View >
 
+             <View style={styles.modalView2}>
+                    <Image
+                      source={require('./Components/Sample_Screens/Sample4.png')}
+                      style={{width: 370, height: 330}}
+                    />
+                    <View style={{marginTop: 10}}>
+                     <AwesomeButtonRick type="secondary" height={30} borderRadius={30} padding={10} paddingTop={5} elevation={3} onPress={() => this.onButtonPress()
+                      }>Ouput_2</AwesomeButtonRick></View>
+             </View >
+   
+
+
+
+   <View style={styles.modalView3}>
+                    <Image
+                      source={require('./Components/Sample_Screens/Sample5.png')}
+                      style={{width: 370, height: 330}}
+                    />
+                    <View style={{marginTop: 10}}>
+                     <AwesomeButtonRick type="secondary" height={30} borderRadius={30} padding={10} paddingTop={5} elevation={3} onPress={() => this.onButtonPress()
+                      }>Ouput_3</AwesomeButtonRick></View>
+             </View >
+   
 </View>
+
+<View style={{
+        marginTop: 530,
+      }}>
+
+<View style={{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+      }}>
+
+   <View style={styles.modalView4}>
+                    <Image
+                      source={require('./Components/Sample_Screens/Sample2.png')}
+                      style={{width: 370, height: 330}}
+                    />
+                    <View style={{marginTop: 10}}>
+                     <AwesomeButtonRick type="secondary" height={30} borderRadius={30} padding={10} paddingTop={5} elevation={3} onPress={() => this.onButtonPress()
+                      }>Ouput_4</AwesomeButtonRick></View>
+             </View >
+   
+
+   <View style={styles.modalView5}>
+                    <Image
+                      source={require('./Components/Sample_Screens/Sample3.png')}
+                      style={{width: 370, height: 330}}
+                    />
+                   <View style={{marginTop: 10}}>
+                     <AwesomeButtonRick type="secondary" height={30} borderRadius={30} padding={10} paddingTop={5} elevation={3} onPress={() => this.onButtonPress()
+                      }>Ouput_5</AwesomeButtonRick></View>
+</View >
+             </View >
+   
+  </View>
+   </View>
+
+
 
   );     
 
@@ -673,6 +652,22 @@ const res2 = res3.splice(40, 0, 0, -0.33, -0.4, -0.76, -0.57, -0.56, -1.11, -1.0
 0.81, 0.49, 0.66, 0.57, 0.74, 0.76, 0.84, 0.61, 0.36, 0.21, 0.26, 0);
 
 
+const data1 = [ 50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80 ]
+
+        const Gradient = () => (
+            <Defs key={'gradient'}>
+                <LinearGradient id={'gradient'} x1="0%" y1="0%" x2="100%" y2="0%">
+                    <Stop offset={'62%'} stopColor={'#808080'}/>
+                    <Stop offset={'67%'} stopColor={'#330066'} svg={{ strokeWidth: 6,}}/>
+                    <Stop offset={'67%'} stopColor={'#808080'} svg={{ strokeWidth: 6,}}/>
+                </LinearGradient>
+            </Defs>
+        )
+
+
+        const labels = ["    0s", "0.2s", "0.4s", "0.6s", "0.8s", "1s"]
+        const labels2 = ["-2s", "-1s", "0s", "1s", "2s"]
+
   return (
     //<ScrollView>
       <View style={{zIndex:10}}>
@@ -705,77 +700,65 @@ const res2 = res3.splice(40, 0, 0, -0.33, -0.4, -0.76, -0.57, -0.56, -1.11, -1.0
                 paddingRight: 40 
               }}>{Time}</Text>
 </View>
-  <LineChart
-    data={{
-      labels: ["0s", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0.2s", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0.4s", "", "", "", "","", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0.6s", "", "", "", "", "", "", "","", "", "", "", "", "", "", "", "", "", "", "0.8s", "", "", "", "", "", "", "", "", "","","","","","","","","","", "1"],
-    datasets: [
-        {
-          data: ar3,
-          strokeWidth: 2
-          
-        },
-        {
-          data: ar4,
-          color: () => '#C7EBFF',
-          strokeWidth: 7
-          
-        }
-      ]
-    }}
 
 
-    width={Dimensions.get("window").width} // from react-native
-    height={520}
-    yAxisLabel=""
-    xAxisSuffix="s"
-    withInnerLines={false}
-withOuterLines={false}
+<View style={{ height: 507, padding: 20, flexDirection: 'row' , flexWrap: 'wrap'}}>
+                <View style={{ flexDirection: 'column', alignContent: 'space-around' }}>
+        <View style={{width: 50, height: 108, backgroundColor: '#F8F8F8'}} > 
+        <Text style={{width: 50, height: 50,  fontSize: 23, color:'black'}}>2</Text> 
+        </View>
 
-    yAxisInterval={1} // optional, defaults to 1
-    chartConfig={{
-    fromZero: false,
-      backgroundColor: "#FFFFFF",
-      backgroundGradientFrom: "#FFFFFF",
-      backgroundGradientTo: "#000000",
-      decimalPlaces: 2, // optional, defaults to 2dp
-      color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-      labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-      style: {
-        borderRadius: 16,
-        strokeWidth: 1400
+        <View style={{width: 50, height: 108, backgroundColor: '#F8F8F8'}} >
+        <Text style={{width: 50, height: 50,  fontSize: 23, color:'black'}}>1</Text> 
+        </View>
+        <View style={{width: 50, height: 108, backgroundColor: 'F8F8F8'}} >
+        <Text style={{width: 50, height: 50,  fontSize: 23, color:'black'}}>0</Text> 
+        </View>
+        <View style={{width: 50, height: 108, backgroundColor: 'F8F8F8'}} >
+        <Text style={{width: 50, height: 50,  fontSize: 23, color:'black'}}>-1</Text> 
+        </View>
+        <View style={{width: 50, height: 50, backgroundColor: 'F8F8F8'}} >
+        <Text style={{width: 50, height: 50,  fontSize: 23, color:'black'}}>-2</Text> 
+        </View>
+      </View>
 
-      },
-      tooltip: {
-    visible: true,
-    labelFontSize: 10
-  },
-      propsForDots: {
-        r: "",
-        strokeWidth: "",
-        stroke: "#fff000"
-      }
-    }}
-    
-    style={{
-      marginVertical: 8,
-      borderRadius: 16
-    }}
-  />
+  <View style={{  flex: 1, marginLeft:0 , marginRight: 43}}>
+                <LineChart
+                    style={{ flex: 1,  }}
+                    data={ar3}
+                    gridMin={0}
+                    contentInset={{ top: 10, bottom: 10 }}
+                    svg={{ strokeWidth: 4,
+                    stroke: 'url(#gradient)',}}
+                >
+                    
+                    <Gradient/>
+                </LineChart>
+                <XAxis
+                    style={{ marginHorizontal: -10, fontSize: 14 }}
+                    data={labels}
+                    formatLabel={i => labels[i]}
+                    
+                    contentInset={{ left: 10, right: 10 }}
+                    svg={{ fontSize: 23, fill: 'black' }}
+                />
+                
+                </View>
 
+
+ 
   
 
-
+  </View>
   
-
-<View style={{marginTop: -34}}>
+ <View style={{marginTop: 0, marginBottom: 34, backgroundColor: '#F5FCFF' }}>
 
       <Button color="#000000"
         title="LearnMore"
         onPress={() => Linking.openURL(Link) }
       />
+</View>
 
-
-    </View>
     </View>
  );     
 
@@ -927,52 +910,7 @@ var Link = "https://wikipedia.com/".concat(data[0].Name);
 </View>
 
 
-  <LineChart
-    data={{
-      labels: ["0.2s", "0.4s", "0.6s", "0.8s", "1s"],
-      datasets: [
-        {
-          data: data[0].Read
-        }
-      ]
-    }}
-
-
-    width={Dimensions.get("window").width} // from react-native
-    height={520}
-    yAxisLabel=""
-    xAxisSuffix="s"
-withInnerLines={false}
-withOuterLines={false}
-
-    yAxisInterval={1} // optional, defaults to 1
-    chartConfig={{
-    fromZero: false,
-      backgroundColor: "#FFFFFF",
-      backgroundGradientFrom: "#FFFFFF",
-      backgroundGradientTo: "#000000",
-      decimalPlaces: 2, // optional, defaults to 2dp
-      color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-      labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-      style: {
-        borderRadius: 16
-      },
-      tooltip: {
-    visible: true,
-    labelFontSize: 10
-  },
-      propsForDots: {
-        r: "",
-        strokeWidth: "2",
-        stroke: "#000000"
-      }
-    }}
-    
-    style={{
-      marginVertical: 8,
-      borderRadius: 16
-    }}
-  />
+  
   
 
 <View style={{marginTop: -37}}>
@@ -1178,112 +1116,108 @@ withOuterLines={false}
 );
 
 
-const ProfileScreen6 = React.memo(function ProfileScreen6({ navigation }) {
-  
-var data = [{'Read': [-1.19, -1.23, -0.65, -0.63, -0.51, -0.52, -0.59, -0.48,
+class ProfileScreen6 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      color: '#1C1C1E',
+      thickness: 8,
+      message: '',
+      photoPath: null,
+      chosenSample: null,
+      scrollEnabled: true,
+      path: null,
+      overlayVisibility: false,
+    };
+  }
+  updateState = () => {
+    console.log('updateState called');
+    // let pathChange = JSON.stringify(this.canvas.getPaths());
+    this.setState(previousState => {
+      return {
+        path: JSON.stringify(this.canvas.getPaths()),
+      };
+    });
+
+  };
+
+  onButtonPress = () => {
+    this.setState({
+      overlayVisibility: false,
+    });
+    this.props.navigation.navigate('JSON6') ;
+  }
+
+  render() {
+    var data = [{'Read': [1.45, 1.25, 1.24, 1.45, 1.25, 1.09, 0.81, 0.84,
+0.93, 0.96, 1.12, 0.6, 0.86, -0.17, -1.45, -1.38, -1.21, -1.27, -1.05,
+-1.38, -1.66, 0.07, 0.03, 0.07, 0.18, 0.14, 0.25, 0.57, 0.11, 0.2,
+0.2, 0.22, 0.26, 0.03, 0.3, 0.18, 0.21, 0.05, 0.36, 0.46, 0.68, 0.57,
+0.72, 0.37, 0.49, 0.33, -0.24, -0.19, -0.28, -0.12, -0.37, -0.32,
+0.21, 0.24, 0.34, 0.4, 0.36, 0.25, -0.91, -0.64, -1.04, -1.04, -0.87,
+-0.65, -0.69, -0.12, 0.18, 0.17, 0.29, 0.34, 0.61, 0.44, 0.3, 0.44,
+0.82, 0.46, 0.26, 0.26, 0.26, 0.33, 0.03, 0.44, 0.5, 0.44, 0.48, 0.41,
+0.41, 0.36, 0.4, 0.44, 0.32, 0.54, 0.37, 0.25, 0.32, 0.41, 0.28, 0.18,
+0.45, 0.34, 0.61, 0.42, 0.21, 0.33, 0.37, 0.46, 0.56, 0.3, 0.41, 0.38,
+0.4, 0.24, 0.21, 0.34, 0.4, 0.18, 0.32, 0.11, 0.29, 0.08, -1.2, -1.0,
+-1.5, -1.45, -1.17, -1.45, -1.4, -1.07, -0.49, -0.79, -0.68, 0.17,
+0.29, 0.5, 0.44, 0.41, 0.4, 0.24, 0.3, 0.46, 0.36, 0.32, 0.4, 0.37,
+0.42, 0.57, 0.36, 0.48, 0.4, 0.37, 0.28, -0.45, -0.57, -0.23, 0.8,
+0.76, 1.06, 1.13, 1.17, 0.78, 0.76, 0.7, 0.6, 0.78, 0.54, 0.81, 0.77,
+0.65, 0.53, 0.58, 0.65, 0.42, 0.09, 0.17, 0.18, -0.01, 0.07, 0.25,
+0.07, 0.05, -0.43, -1.28, -0.91, -1.12, 0.96, 0.58, 0.98, 0.73, 0.9,
+0.98, 1.04, 1.22, 1.02, 0.78, 0.74, 0.62, 0.7, -0.47, -1.58, -1.42,
+-1.54, -1.7, -1.52, -0.87, -1.11, -0.95, -0.07, 1.21, 1.3, 1.13, 1.46,
+1.46, 1.18, 1.4, 1.37, 1.36, 1.37, 1.1, 1.26, 0.94, 0.42, 0.18, 0.36,
+0.28, 0.3, 0.4, 0.12, 0.3, 0.17, 0.05, 0.08, 0.14, 0.22, 0.33, 0.03,
+-0.47, -1.38, -1.42, -1.28, -1.49, -1.36, -1.49, -1.37, -1.38, -1.28,
+-1.08, -1.13, -1.19, -1.23, -0.65, -0.63, -0.51, -0.52, -0.59, -0.48,
 0.07, 0.74, 0.4, 0.56, 0.61, 0.22, -0.8, -1.08, -1.36, -1.33, -1.15,
 -0.39, 1.08, 0.74, 0.69, 0.84, 0.7, 1.13, 0.89, 1.04, -0.33, -0.53,
 -0.47, -0.65, -0.79, 0.16, 0.66, 0.82, 1.06, 0.2, -0.68, -0.72, -0.92,
 -0.49, -0.69, -0.84, -1.04, -1.09, -1.09, -0.99, -1.31, -0.97, -0.79,
--0.69, -0.39, 0.36, 0.41, 0.48, 0.25, 0.22, 0.25, -0.03, -1.04, -0.55,
--0.53, -0.76, -0.68, -0.47, -0.52, -0.77, -0.47, 0.62, -1.32, -1.44, 
--1.57, -1.72, -1.61, -1.52, -1.7, -1.77, -1.85, -1.82, -1.84, -2.04,
--2.29, -1.58, -1.69, 0.03, 2.17, 2.06, 2.05, 1.7, 0.68, 0.69, 0.49,
-0.57, 0.57, 0.52, 0.64, 0.57, 0.41, 0.57, 0.4, 0.26, 0.2, 0.14, 0.42,
-0.34, 0.08, -0.45, -0.39, -0.11, -0.37, -0.56, -0.4, -0.17, -0.44,
--0.33, 0.03, 0.28, 0.24, -0.44, -0.49, -0.32, -0.64, 0.74, 0.92, 1.16,
-0.84, 0.98, 0.85, 1.01, 1.01, 1.0, 0.72, 0.66, 0.05, 0.57, 0.36, 0.04,
-0.37, 0.4, 0.2, 0.41, 0.09, -0.09, -0.19, -0.44, -0.15, 0.34, -0.59,
--1.41, -1.6, -1.42, -1.36, 1.24, 1.94, 2.02, 2.29, 1.89, 2.05, -0.23,
--1.31, 1.1, 2.03, 1.91, 2.01, 2.13, 2.06, 2.14, 2.31, 2.01, 2.05,
-2.14, 2.19, 2.19, 0.69, 0.61, 0.66, 0.74, -0.55, -0.44, -0.8, -0.85,
--0.83, -0.91, -1.03, -1.4, -1.32, -1.37, -1.23, -1.25, -1.0, -0.49,
--0.77, -0.81, -0.68, -0.49, -0.28, -0.59, 0.14, 0.46, 0.5, -0.15,
--0.15, -0.4, -0.07, -0.35, -0.12, -0.17, 0.14, 1.04, 1.05, 1.33, 1.12,
-1.24, 1.38, 1.41, 1.22, 0.8, 0.77, 0.24, -0.17, -0.19, -0.04, 1.17,
-1.5, 1.53, 1.61, 1.5, 1.42, 1.65, 1.67, 1.55, 1.58, 1.41, 1.0, 1.09,
-0.84, 0.93, 0.94, 0.8, 0.72, 0.18, 0.11, -0.47, -1.12, -1.31, -0.48,
--0.43, 0.4, -0.35, -1.03, -0.87, -0.79, -1.24, -0.67, -0.69, -0.6,
-0.3, 1.02, 1.08, 0.74, 0.24, 0.25, 0.52, 0.32, 0.28, 0.11, 0.22, 0.08,
-0.4, 0.21, 0.21, -0.05, 0.22, -0.13, -1.0, -0.89, -0.84, -1.07, -0.79,
--0.44, -0.2, -0.43, 0.4, 0.11, -0.88, -0.96, -0.85, 0.56, 2.13, 2.1,
-2.19, 2.21, 1.74, 1.54, 0.86, 1.14, 1.17, 1.06, 1.08, 0.68, 0.14,
-0.25, 0.53, 0.13, -0.81, -0.65, -0.87, -0.99, -0.77, -1.19, -0.71,
--0.53, -0.09, 0.18, -0.27, -0.37, -0.09, -0.56, -0.25, -0.59, -0.48,
--0.55, -0.33, -0.4, -0.05, 0.94, 0.88, 0.74, 1.12, 0.94, 1.02, 1.04,
-0.88, 1.08, 1.09, 0.92, 0.85, 0.84, 1.01, 0.93, 0.73, 0.86, 1.04,
-0.93, 1.06, 0.93, 0.89, 0.84, 0.82, 0.52, 0.53, 0.56, 0.56, 0.66,
-1.01, 0.98, 0.92, 0.85, 0.89, 0.92, 0.88, 0.93, 0.82, 0.85, 0.89,
-0.82, 0.86, 1.06, 1.09, 0.82, 1.0, 0.93, 0.89, 0.92, 0.82, 0.98, 1.04,
-1.06, 0.9, 0.8, 1.08, 1.01, 0.96, 0.34, 0.34, 0.46, 0.32, 0.26, 0.16,
-0.38, 0.2, -0.16, -0.11, -0.4, 0.01, -0.16, 0.05, -0.28, 0.3, 1.24,
-1.01, 1.12, 0.61, 0.18, 0.21, 0.13, 0.32, 0.16, 0.26, 0.25, 0.24,
--0.25, -0.04, -0.33, -0.43, -0.24, -0.47, -0.27, 0.68, 0.45, 0.45,
-0.22, 0.08, 0.16, -0.89, -1.03, -1.03, -1.28, -1.12, -1.23, -1.27,
--1.34, -1.52, 0.96, 1.17, 0.76, -0.91, -1.07, -0.68, -0.93, -0.8,
--1.0, -1.25, -1.13, -1.04, -0.92, -1.15, -1.11, -1.66, -1.61, -1.5,
--1.86, -1.77, -1.65, -1.49, -1.58, -1.46, -1.49, -1.29, -1.09, -1.03,
--0.85, -0.68, -0.72, -0.81, -0.59, -0.69, -0.72, -0.56, -0.61, -0.56,
-0.65, 0.38, 0.53, 0.66, 0.58, 0.58, 0.68, 0.69, 0.5, 0.4, 0.65, 0.45,
-0.69, 0.56, 0.93, 0.64, 0.52, 0.72, 0.12, 0.62, 0.6, 1.29, 1.44, 1.95,
-1.48, 1.44, 1.42, 1.59, 0.58, 0.36, 0.29, -0.71, -0.64, -0.63, -0.83,
--0.81, -0.84, -1.27, -1.21, -1.17, -1.13, -1.13, -1.53, -1.52, -1.84,
--1.54, -1.48, -1.45, -1.33, -1.61, -1.46, -1.53, -1.54, -1.45, -2.13,
--1.97, -1.76, -2.01, -1.93, -2.02, -2.04, -2.05, -1.12, -0.8, -0.65,
--0.68, -1.25, -0.63, -0.92, -0.8, -0.8, -0.91, -0.75, 0.21, 0.41,
-0.53, 0.69, 0.54, 0.33, 0.4, 0.36, 0.5, 0.44, 0.42, 0.13, 0.18, 0.2,
--0.89, -1.29, -1.05, -1.23, -1.01, -1.23, -1.07, -1.07, -0.91, -1.34,
--1.29, -0.97, -0.92, -0.73, -0.59, -0.8, -0.83, -0.71, -0.71, -0.84,
--0.6, -0.35, 0.86, 1.06, 0.65, 0.53, 0.25, -0.15, 0.16, -0.2, -0.45,
--0.63, -0.39, -0.44, -0.23, -0.39, -0.47, -0.51, -0.36, -0.57, -0.36,
-1.01, 1.09, 1.06, 0.94, 1.17, 1.13, 1.0, 1.13, 1.02, 0.97, 1.05, 1.2,
-1.08, 1.14, 0.88, 1.29, 1.22, 0.8, 0.64, 0.73, 0.65, 0.17, 0.34, 0.46,
-0.18, 0.37, 0.36, 0.12, -0.03, -0.05, -0.03, -0.23, 0.72, 0.6, 0.28,
-0.6, -0.28, -0.81, -1.2, -0.89, -0.29, -1.42, -1.13, -0.96, -1.27,
--1.04, -0.76, -0.87, -0.63, -0.93, -0.63, 1.18, 0.94, 0.89, 0.97, 1.0,
-0.81, 1.13, 1.0, 0.86, 1.12, 0.68, 0.61, 0.57, -0.23, -0.15, -0.96,
--1.16, -1.01, -0.35, 2.37, 2.27, 2.01, 2.26, 2.25, 2.18, 1.98, 2.09,
-2.17, 1.86, 1.89, 1.95, 1.97, 1.77, 0.88, -0.15, 0.07, 0.05, -0.17,
--0.05, -0.11, -0.25, -0.13, 0.16, 0.14, 0.29, -0.31, 1.67, 2.01, 1.71,
-1.65, 1.65, 1.52, 1.18, 0.73, 0.65, 0.6, 0.64, 0.62, 0.53, 0.49, 0.53,
-0.45, 0.56, 0.46, 0.74, 0.62, 0.54, 0.62, 0.93, 0.68, 0.92, 0.77,
-0.96, 0.89, 0.77, 0.81, 0.81, 1.1, 1.38, 1.06, 0.89, 0.96, 0.66, 0.96,
-1.24, 0.97, 1.12, 1.17, 1.21, 0.74, 0.89, 0.97, 0.97, 1.01, 0.77,
-0.94, 1.09, 0.89, 0.6, -0.36, -0.41, -0.56, -0.09, 1.67, 0.33, 0.24,
-0.16, 0.13, -0.13, -0.24, -0.99, -0.79, -0.88, -1.08, -1.27, -0.99,
-0.14, 0.82, 0.89, 0.45, 0.89, 0.93, -0.35, -1.28, -1.16, -1.48, -0.89,
--0.84, -0.64, -0.72, -0.13, 1.21, 1.25, 1.28, 1.33, 1.28, 1.34, 1.09,
-1.17, 1.32, 1.21, 1.33, 1.26, 1.32, 1.22, 1.17, 1.32, 1.21, 1.26,
-1.21, 1.3, 1.32, 1.26, 0.82, -0.59, -0.69, -0.79, -0.19, 1.18, 1.17,
-1.37, 1.26, 1.32, 1.02, 1.18, 1.21, 1.12, 1.24, 1.14, 1.17, 1.24,
-1.21, 1.44, 1.28, 1.25, 1.16, 1.24, 1.08, 1.16, 1.25, 1.2, 1.2, 1.24,
-1.21, 1.1, 1.13, 1.33, 1.18, 1.18, 1.2, 1.46, 1.2, 1.37, 1.29, 1.25,
-1.22, 1.37, 1.42, 1.2, 1.25, 1.25, 1.21, 0.42, 0.2, 0.21, 0.2, 0.26,
-0.3, 0.26, 0.24, 0.34, 0.21, 0.21, -0.91, -1.33, -1.6, -1.42, -1.34,
--1.36, -1.23, -1.45, -1.53, -0.76, -0.73, -0.65, -0.67, -0.81, -0.89,
--0.91, -0.84, -0.79, -0.56, -0.36, 0.42, 0.7, 0.9, 0.88, 0.8, 0.86,
-0.78, 0.98, 0.96, 0.85, 0.86, 0.41, -0.03, -0.11, -0.12, -0.16, 0.03,
-1.37, 1.82, 1.85, 1.74, 1.93, 0.72, 0.28, 0.29, -0.75, -0.76, -0.99,
--0.83, -1.08, -1.08, -0.95, 0.69, 0.89, 0.81, 0.72, 0.74, 0.92, 0.62,
-0.73, 0.12, -1.31, -1.45, -1.04, -0.77, -0.8, -0.84, -0.93, -0.84,
--0.8, -0.81, -0.87, -0.8, -0.83, -0.79, -0.55, 0.4, 0.29, 0.41, -0.28,
-0.37, 0.52, 0.26, 0.42, 0.49, 0.46, 0.56, 0.32, 0.45, 0.78, 0.2, 0.73,
-0.36, 0.54, 0.56, 0.61, 0.41, 0.26, 0.36, 0.33, 0.3, 0.37, 0.53, 0.45,
-0.37, 0.41, 0.05, -0.48, -0.37, -0.44, 0.86, 0.76, 0.69, 0.88, 0.82,
-0.72, 0.88, 0.69, -0.07, -0.15, -0.25, -0.21, -0.25, -0.16, -0.19,
--0.32, 0.5, 2.1, 1.79, 2.02, 2.18, 1.99, 2.02, 2.09, 1.87, 1.94, 1.08,
-0.72, 0.77, 0.28, -0.16, -0.33, -0.16, -0.31, 0.16, 0.66, 0.53, 0.52,
-0.54, 0.52, 0.32, 0.41, 0.41, 0.42, 0.44, 0.25, 0.32, -0.32, -0.2,
--0.25, -0.11, -0.15, -0.36, -0.0, -0.01, -0.11, -0.2, -0.39, -0.31,
--0.49, 0.58, 0.58, 0.5, 0.53, 0.5, 0.46, 0.42, -0.71, -1.16, -1.11,
--0.77, 0.22, 0.97, 0.68, 0.8, 0.7, 0.72, 0.8, 0.64, 0.68, 0.66, 0.74,
-0.6, 0.92, 0.82, 0.7, 0.69, 0.88, 0.56, 0.68, 0.45, -0.01, -0.13,
--0.08, -0.95, -1.62, -1.61, -1.46, -1.64, -1.66, -1.41, -1.53, -1.19,
-1.85, 1.98, 2.15, 1.55, 0.7, 0.6, 0.72, 0.9, 0.98, 1.46, 0.92, 0.73,
-1.06, 0.89, 1.0, 0.92, 0.84, 0.9, 0.78, 0.84, 1.77, 1.75, 1.04, 0.76,
-1.04, 0.8, 0.81, 0.76, 1.33, 2.29, 0.82, 0.61, 1.04, 0.73, 0.8, 0.61
-], 'Name': '49adf045-6329-48f2-aa2f-510d043700d7',
-'Confidence': 0.9, 'Time': 0.061055} ];
+0.78, 0.89, 1.18, 1.13, 1.32, 1.26, 1.13, 0.92, 0.86, 0.29, 0.2, 0.25,
+0.11, 0.58, 0.72, 0.76, 2.34, 2.31, 2.34, 2.31, 2.31, 2.34, 2.38, 2.3,
+2.14, 1.25, 0.93, 1.05, 0.97, 0.97, 1.91, 1.49, 0.7, 0.57, 0.57, 0.58,
+-0.25, -0.12, 0.01, -0.23, 0.03, 0.74, 1.02, 1.16, 0.54, 0.73, 0.62,
+0.58, 0.56, 0.57, 0.6, 0.46, 0.5, 0.73, 0.04, -0.39, -0.51, -0.53,
+-0.63, -0.48, -0.67, -0.57, -0.52, -0.65, -1.08, -0.72, -0.51, -0.43,
+-0.52, -0.37, -0.24, 0.29, 0.36, 0.53, 0.41, 0.56, 0.2, 0.3, 0.22,
+0.24, 0.05, 0.29, 0.09, 0.26, -0.41, -0.29, -0.35, -0.07, -0.25,
+-0.27, -0.56, -0.28, 0.09, 1.01, 1.26, 1.17, 0.98, 1.05, 0.78, -0.13,
+-1.21, -1.12, -1.46, -1.44, -1.6, -1.36, -1.4, -0.63, -1.21, -1.17,
+-1.37, -1.33, -1.81, -1.46, -1.33, -1.53, -1.54, -1.7, -1.82, -1.76,
+-2.14, -1.85, -1.92, -1.98, -1.84, -1.57, -0.72, 1.89, 2.17, 2.15,
+2.05, 0.9, 0.58, 0.61, 0.62, 0.94, 0.58, 0.58, 0.57, 0.72, 0.53, 0.57,
+0.53, 0.44, 0.4, 0.07, 0.13, 0.11, 0.07, -0.01, -0.0, 0.17, 0.09,
+0.28, 0.05, 0.01, -0.45, -0.01, -0.03, -0.41, -0.39, -0.47, -0.37,
+-0.51, -0.4, -0.32, -0.44, -0.44, -0.57, -0.37, -0.41, -0.35, -0.36,
+-0.4, -0.41, -0.36, -0.23, 0.42, 0.4, 0.52, 0.56, 0.58, 0.53, 0.49,
+0.38, 0.5, 0.29, 0.58, 0.48, 0.37, 0.56, 0.53, 0.3, 0.49, 0.42, 0.56,
+0.56, 0.66, 0.74, 0.29, 0.28, -0.64, -1.45, -1.42, -1.17, -1.37,
+-1.42, -1.0, -1.15, 0.66, 0.84, 1.0, 0.97, 0.16, -0.19, -0.03, -0.11,
+-0.12, -0.03, -0.23, -0.25, -0.03, -0.24, 0.03, 0.65, 0.26, 0.41,
+0.64, 0.62, 0.97, 0.52, 0.21, -0.28, -0.33, -0.4, -0.25, -0.17, -0.28,
+0.08, -0.29, -0.35, -0.35, -0.37, -0.44, -0.84, -0.76, -1.33, -1.7,
+-2.26, -2.52, -2.5, -2.64, -2.69, -2.49, -2.62, -2.64, -2.4, -1.03,
+-0.93, -0.75, -0.76, -0.64, -0.93, -0.84, -0.76, -0.8, -0.8, 0.57,
+0.64, 0.81, 0.77, 0.73, 0.7, 0.8, 0.96, 0.84, 1.01, 0.77, 0.65, 0.84,
+0.65, 0.69, 0.64, -0.39, -0.47, -0.49, -0.75, -0.4, -0.48, -0.92,
+-0.95, -0.81, -0.53, -0.99, -0.96, -1.4, -1.53, -1.58, -1.53, -1.7,
+-1.52, -1.2, -1.07, -0.92, -1.09, -0.99, -0.91, -0.99, -1.21, -1.01,
+-0.99, -0.97, -1.09, -0.93, -1.13, -0.93, -0.92, -0.8, -0.92, 0.32,
+0.45, 0.68, 0.14, 0.3, 0.3, 0.22, 0.11, -0.33, -0.44, -0.49, -0.47,
+-0.47, -0.39, -0.35, -0.48, -0.4, -0.48, -0.45, -0.35, -0.05, 0.64,
+0.36, 0.18, 0.05, -0.71, -0.52, -0.57, -0.8, -0.47, 0.09, 0.13, -0.09,
+0.28, 0.46, 0.52, 0.61, 1.54, 1.87, 1.32, 0.21, 0.44, 0.26, 0.45,
+0.56, 0.37, 0.2, 0.38, 0.44, 0.16, 0.25, 0.44, 0.34, 0.21, -0.63,
+-0.64, -0.52, -0.71, -0.35, -0.27, -0.17, -0.24, -0.4, -0.37, -0.36,
+-0.29, -0.44, -0.16, 0.3, 0.7, 0.68, 0.25, 0.88, 0.66, 0.62, 0.3,
+0.29, -0.29, -0.23, -0.27, -0.23, -0.35, -0.11, 0.08, 0.73, 0.54,
+0.88, 0.62, 0.74, 0.41, -0.68, -0.72, -0.72, -0.64, -0.73, -0.83,
+-0.64, -0.63, -0.55], 'Name':
+'49adf045-6329-48f2-aa2f-510d043700d7', 'Confidence': 0.75, 'Time':
+1.1e-05} ];
 
 
 var Confidence = "Confidence : ".concat(data[0].Confidence) ;
@@ -1291,44 +1225,74 @@ var Time = "Time(in sec) : ".concat(data[0].Time) ;
 var Link = "https://wikipedia.com/".concat(data[0].Name);
 
 
-
-  return (
-<View style={{flex: 1, flexDirection: 'row'}}>
+    var RNFS = require('react-native-fs');
+    var _ = require('lodash');
+    
+    return (
+      <View style={{flex: 1, flexDirection: 'column'}}>
+        
         <View style={{flex: 1, flexDirection: 'column'}}>
           {/* Place eraser component */}
-          <SketchCanvas
-            clearComponent={<View style={styles.functionButton}><Text style={{color: 'white'}}>Clear</Text></View>}
-            localSourceImage={{
-              filename: 'background.jpg',
-              directory: '',
-              mode: 'ScaleToFill',
-            }}
+          <RNSketchCanvas
             
-           
-            style={{flex: 1, zIndex:10, marginTop: 0, marginBottom: -180}}
-           
+            containerStyle={{ backgroundColor: 'transparent', flex: 1, zIndex: 100}}
+            canvasStyle={{ backgroundColor: 'transparent', flex: 1, zIndex: 10 }}
+            defaultStrokeIndex={0}
+            defaultStrokeWidth={4}
+            clearComponent={<View style={{
+    marginHorizontal: 2.5, marginVertical: 8, height: 30, width: 60,
+    backgroundColor: '#39579A', justifyContent: 'center', alignItems: 'center', borderRadius: 5,
+  }}><Text style={{color: 'black'}}>Clear</Text></View>}
+          
+            
             
           />
-
-     <View style={{marginTop: -880}}>
+</View>
+          <View style={{marginTop: 0, position: 'absolute'}}>
   <Text style={{
                 textAlign: 'center',
                 fontSize: 18,
                 padding: 16,
-                marginTop: -160,
-              }}>Disease_Name_ : {data[0].Name}</Text>
+                marginTop: 16,
+                
+               
 
-  <LineChart data={{ 
-    labels: ["0s", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0.2s", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0.4s", "", "", "", "","", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "0.6s", "", "", "", "", "", "", "","", "", "", "", "", "", "", "", "", "", "", "0.8s", "", "", "", "", "", "", "", "", "","","","","","","","","","", "1"],
-       
-  datasets: [
+              }}>Disease_Name_2 : {data[0].Name}</Text>
+
+
+<View style={{flexDirection: 'row'}}>
+  <Text style={{
+                textAlign: 'left',
+                fontSize: 18,
+                padding: 16,
+                marginTop: 0,
+               
+                paddingLeft: 70 
+              }}>{Confidence}</Text>
+
+
+    <Text style={{
+                textAlign: 'right',
+                fontSize: 18,
+                padding: 16,
+                marginTop: 0,
+                zIndex:1,
+                paddingLeft: 750 ,
+                paddingRight: 40 
+              }}>{Time}</Text>
+</View>
+
+
+  <LineChart
+    data={{
+      labels: ["0.2s", "0.4s", "0.6s", "0.8s", "1s"],
+      datasets: [
         {
           data: data[0].Read
         }
       ]
     }}
 
-    
 
     width={Dimensions.get("window").width} // from react-native
     height={520}
@@ -1336,82 +1300,51 @@ var Link = "https://wikipedia.com/".concat(data[0].Name);
     xAxisSuffix="s"
 withInnerLines={false}
 withOuterLines={false}
+
     yAxisInterval={1} // optional, defaults to 1
-    xAxisInterval={1}
     chartConfig={{
-      
-      fromZero: false,
-      backgroundColor: "#0000ff",
-      backgroundGradientFrom: "#0000ff",
-      backgroundGradientTo: "#ffa726",
+    fromZero: false,
+      backgroundColor: "#FFFFFF",
+      backgroundGradientFrom: "#FFFFFF",
+      backgroundGradientTo: "#000000",
       decimalPlaces: 2, // optional, defaults to 2dp
-      color: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
-      labelColor: (opacity = 0) => `rgba(255, 255, 255, ${opacity})`,
+      color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+      labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
       style: {
-        borderRadius: 0
+        borderRadius: 16
       },
       tooltip: {
     visible: true,
-    labelFontSize: 0
+    labelFontSize: 10
   },
       propsForDots: {
         r: "",
-        strokeWidth: "14",
+        strokeWidth: "2",
         stroke: "#000000"
       }
     }}
     
     style={{
-      marginVertical: 0,
-      borderRadius: 0
+      marginVertical: 8,
+      borderRadius: 16
     }}
   />
-  <View style={{marginBottom: 0, backgroundColor: '#F5FCFF' }}>
-    
-<Button color="#000000"
-        title={Confidence} 
+  
 
-        
-      > 
-      </Button>
-
-<View style={{marginTop: 13 , backgroundColor: '#F5FCFF' }}>
-
-      <Button color="#000000"
-        title={Time}
-
-        
-      />
-<View style={{marginTop: 54, marginBottom: 34, backgroundColor: '#F5FCFF' }}>
-
+<View style={{marginTop: -37}}>
       <Button color="#000000"
         title="LearnMore"
         onPress={() => Linking.openURL(Link) }
       />
-</View>
-</View>
-    </View>
-    </View>
 
-    <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-evenly',
-              alignItems: 'center',
-            }}>
-            
-           
-
-            
-
-            
-          </View>
-    
     </View>
     </View>
-  );
+         
+                  
+      </View>
+    );
+  }
 }
-)
 
 
 const ProfileScreen4 = React.memo(function ProfileScreen4({ navigation }) {
@@ -1776,7 +1709,7 @@ const AppNavigator = createStackNavigator(
       
         JSON5: ProfileScreen5,
 
-        JSON6: ProfileScreen6,
+        Sketch_Here: ProfileScreen6,
 
     },  
     {  
